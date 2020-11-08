@@ -1,0 +1,13 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+h3 {
+    @apply font-bold text-xl;
+}
+
+h2 {
+    @apply font-bold text-2xl;
+}

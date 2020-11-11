@@ -17,23 +17,9 @@ object ToDoneService {
   val service: HttpRoutes[IO] =
     HttpRoutes.of[IO]{
       case GET -> Root / "api" / "tasks" =>
-        val tasks =
-          Tasks(
-            List(
-              Id(1) -> Task(
-                State.open,
-                "Play with the ToDone interface",
-                "",
-                None,
-                Tags.empty),
-              Id(2) -> Task(
-                State.open,
-                "Implement functionality to close a completed task",
-                "",
-                None,
-                Tags.empty)
-            )
-          )
-        Ok(tasks)
+        Ok(Controller.tasks)
+
+      case POST -> Root / "api" / "task" / IntVar(id) / "close" =>
+        Ok(Controller.close(Id(id)))
     }
 }

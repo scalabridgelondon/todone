@@ -16,7 +16,7 @@ object ToDoneService {
 
   val service: HttpRoutes[IO] =
     HttpRoutes.of[IO]{
-      case GET -> Root / "tasks" =>
+      case GET -> Root / "api" / "tasks" =>
         val tasks =
           Tasks(
             List(

@@ -5,7 +5,7 @@ ThisBuild / scalaVersion := "2.13.3"
 ThisBuild / useSuperShell := false
 
 val circeVersion = "0.13.0"
-val http4sVersion = "1.0.0-M5"
+val http4sVersion = "1.0.0-M6"
 val logbackVersion = "1.2.3"
 
 val sharedSettings = Seq(

@@ -4,21 +4,25 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 ThisBuild / scalaVersion := "2.13.3"
 ThisBuild / useSuperShell := false
 
+val catsVersion = "2.2.0"
 val circeVersion = "0.13.0"
-val http4sVersion = "1.0.0-M5"
+val http4sVersion = "1.0.0-M6"
 val logbackVersion = "1.2.3"
 
 val sharedSettings = Seq(
   libraryDependencies ++= Seq(
-    "io.circe" %%% "circe-core" % circeVersion,
-    "io.circe" %%% "circe-generic" % circeVersion,
-    "io.circe" %%% "circe-parser" % circeVersion,
+    "org.typelevel" %%% "cats-core"     % catsVersion,
+    "io.circe"      %%% "circe-core"    % circeVersion,
+    "io.circe"      %%% "circe-generic" % circeVersion,
+    "io.circe"      %%% "circe-parser"  % circeVersion,
+    "io.monix"      %%% "minitest"      % "2.8.2" % "test"
   ),
   scalacOptions ++= Seq(
     "-Ymacro-annotations",
     "-Wunused:imports",
     "-Werror"
-  )
+  ),
+  testFrameworks += new TestFramework("minitest.runner.Framework")
 )
 
 lazy val data = crossProject(JSPlatform, JVMPlatform)

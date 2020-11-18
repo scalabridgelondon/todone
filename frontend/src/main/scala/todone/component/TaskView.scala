@@ -11,7 +11,16 @@ import todone.data.State.Open
 import todone.data.State.Closed
 
 @react object TaskView {
-  val roundedBox = Style("border-2", "rounded", "w-6", "h-6", "mr-2")
+  val roundedBox = Style(
+    "flex",
+    "justify-center",
+    "items-center",
+    "border-2",
+    "rounded",
+    "w-6",
+    "h-6",
+    "mr-2"
+  )
 
   def checkbox(id: Id, state: State, close: Id => Unit): ReactElement =
     state match {
@@ -19,10 +28,18 @@ import todone.data.State.Closed
         div(
           className := (roundedBox ++ Styles.bgHoverAccent).toString,
           onClick := (() => close(id))
+        )(
+          span(
+            className := ("opacity-0 hover:opacity-100" +: Styles.textHoverAccent).toString
+          )("✓")
         )
 
       case Closed =>
-        div(className := roundedBox.toString)
+        div(
+          className := roundedBox.toString
+        )(
+          span(className := Styles.textDimmed.toString)("✓")
+        )
     }
 
   case class Props(id: Id, task: Task, close: Id => Unit)

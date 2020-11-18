@@ -15,14 +15,14 @@ val sharedSettings = Seq(
     "io.circe"      %%% "circe-core"    % circeVersion,
     "io.circe"      %%% "circe-generic" % circeVersion,
     "io.circe"      %%% "circe-parser"  % circeVersion,
-    "io.monix"      %%% "minitest"      % "2.8.2" % "test"
+    "org.scalameta" %%% "munit"         % "0.7.17" % Test
   ),
   scalacOptions ++= Seq(
     "-Ymacro-annotations",
     "-Wunused:imports",
     "-Werror"
   ),
-  testFrameworks += new TestFramework("minitest.runner.Framework")
+  testFrameworks += new TestFramework("munit.Framework")
 )
 
 lazy val data = crossProject(JSPlatform, JVMPlatform)

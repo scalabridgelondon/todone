@@ -39,7 +39,8 @@ lazy val backend = project
       "org.http4s" %% "http4s-circe" % http4sVersion,
       "org.http4s" %% "http4s-dsl" % http4sVersion,
       "ch.qos.logback" %  "logback-classic" % logbackVersion,
-    )
+      ),
+    run / fork := true
   )
   .dependsOn(data.jvm)
 

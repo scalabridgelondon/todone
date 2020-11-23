@@ -44,6 +44,8 @@ lazy val backend = project
   )
   .dependsOn(data.jvm)
 
+val deploy = taskKey[Unit]("Build and deploy the frontend to the backend asset location")
+
 lazy val frontend = project
   .in(file("frontend"))
   .settings(
@@ -79,10 +81,19 @@ lazy val frontend = project
     fastOptJS / webpackBundlingMode := BundlingMode.LibraryOnly(),
     fullOptJS / webpackConfigFile := Some(baseDirectory.value / "webpack" / "webpack-opt.config.js"),
     Test / webpackConfigFile := Some(baseDirectory.value / "webpack" / "webpack-core.config.js"),
-    Test / requireJsDomEnv := true
+    Test / requireJsDomEnv := true,
+    deploy := {
+      val fs = (Compile / fullOptJS / webpack).value
+      val outDir = (backend / baseDirectory).value / "assets"
+
+      fs.foreach(f =>
+        sbt.io.IO.copyFile(f.data, outDir / (f.data.name))
+      )
+    }
   )
   .enablePlugins(ScalaJSBundlerPlugin)
   .dependsOn(data.js)
 
 addCommandAlias("dev", ";fastOptJS::startWebpackDevServer;~fastOptJS")
 addCommandAlias("build", "fullOptJS::webpack")
+

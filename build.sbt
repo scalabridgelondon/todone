@@ -40,7 +40,8 @@ lazy val backend = project
       "org.http4s" %% "http4s-dsl" % http4sVersion,
       "ch.qos.logback" %  "logback-classic" % logbackVersion,
       ),
-    run / fork := true
+    run / fork := true,
+    run / javaOptions += s"-Dtodone.assets=${((baseDirectory.value) / "assets").toString}"
   )
   .dependsOn(data.jvm)
 

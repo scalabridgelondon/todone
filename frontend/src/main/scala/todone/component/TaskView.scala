@@ -15,18 +15,16 @@ import todone.data.State.Closed
     "flex",
     "justify-center",
     "items-center",
-    "border-2",
-    "rounded",
     "w-6",
     "h-6",
     "mr-2"
-  )
+  ) ++ Styles.border
 
   def checkbox(id: Id, state: State, close: Id => Unit): ReactElement =
     state match {
       case Open =>
         div(
-          className := (roundedBox ++ Styles.bgHoverAccent).toString,
+          className := (roundedBox ++ Styles.borderHoverAccent).toString,
           onClick := (() => close(id))
         )(
           span(

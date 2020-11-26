@@ -12,7 +12,7 @@ import todone.data._
 
 @react object Controller {
 
-  val component = FunctionalComponent[Unit]{ _ =>
+  val component = FunctionalComponent[Unit] { _ =>
     object State {
       val (tasks, updateTasks) = useState(Tasks.empty)
     }
@@ -20,14 +20,16 @@ import todone.data._
     object Effects {
       implicit val ec = Api.ec
 
-      val tasks: () => Unit = () =>
-        Api.tasks.onComplete{
-          case Success(tasks) => State.updateTasks(tasks)
-          case Failure(err) => console.error(err.getMessage())
-        }
+      val close: Id => Unit = id => Api.close(id).onComplete(_ => tasks())
 
-      val close: Id => Unit = id =>
-      Api.close(id).onComplete(_ => tasks())
+      val create: Task => Unit =
+        task => Api.create(task).onComplete(_ => tasks())
+
+      val tasks: () => Unit = () =>
+        Api.tasks.onComplete {
+          case Success(tasks) => State.updateTasks(tasks)
+          case Failure(err)   => console.error(err.getMessage())
+        }
     }
 
     // Initialize tasks from the server
@@ -38,7 +40,11 @@ import todone.data._
         ProjectList(List(Project("project 1"), Project("project 2"))),
         TagList(List(Tag("scala"), Tag("programming")))
       ),
-      right = TaskList(tasks = State.tasks, close = Effects.close)
+      right = div(
+        TaskList(tasks = State.tasks, close = Effects.close),
+        div(className := "p-4"),
+        TaskEditor(Effects.create)
+      )
     )
   }
 }

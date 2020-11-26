@@ -63,10 +63,10 @@ lazy val frontend = project
       "html-webpack-plugin" -> "4.3.0",
       "copy-webpack-plugin" -> "5.1.1",
       "webpack-merge" -> "4.2.2",
-      "postcss-loader" -> "4.0.0",
-      "postcss" -> "7.0.32",
-      "tailwindcss" -> "1.9.0",
-      "autoprefixer" -> "9.8.6",
+      "postcss-loader" -> "4.1.0",
+      "postcss" -> "8.1.10",
+      "tailwindcss" -> "2.0.1",
+      "autoprefixer" -> "10.0.2",
       "react-icons" -> "3.11.0"
     ),
     libraryDependencies ++= Seq(

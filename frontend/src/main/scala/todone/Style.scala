@@ -27,6 +27,8 @@ final case class Style(style: NonEmptyChain[String]) {
   }
 }
 object Style {
+  val empty: Style = Style(NonEmptyChain.one(""))
+
   def one(style: String): Style =
     Style(NonEmptyChain.one(style))
 

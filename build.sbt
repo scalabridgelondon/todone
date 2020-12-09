@@ -15,7 +15,8 @@ val sharedSettings = Seq(
     "io.circe"      %%% "circe-core"    % circeVersion,
     "io.circe"      %%% "circe-generic" % circeVersion,
     "io.circe"      %%% "circe-parser"  % circeVersion,
-    "org.scalameta" %%% "munit"         % "0.7.17" % Test
+    "org.scalameta" %%% "munit"         % "0.7.17" % Test,
+    "org.scalameta" %% "munit-scalacheck" % "0.7.19" % Test
   ),
   scalacOptions ++= Seq(
     "-Ymacro-annotations",

@@ -2,6 +2,7 @@ package todone.component
 
 import slinky.core._
 import slinky.core.annotations.react
+import slinky.core.facade.Hooks._
 import slinky.core.facade.ReactElement
 import slinky.web.html._
 
@@ -42,18 +43,26 @@ import todone.data.State.Closed
 
   case class Props(id: Id, task: Task, close: Id => Unit)
   val component = FunctionalComponent[Props] { props =>
+    val (expanded, updateExpanded) = useState(false)
+
     val task = props.task
 
-    div(className := "flex justify-start items-center bg-white px-4 py-2")(
+    div(className := "flex justify-start items-start bg-white px-4 py-2")(
       checkbox(props.id, task.state, props.close),
-      task.state match {
-        case Open =>
-          h3(task.title)
-        case Closed =>
-          h3(className := ("line-through" +: Styles.textDimmed).toString)(
-            task.title
-          )
-      }
+      div(
+        div(onClick := (() => updateExpanded(e => !e)))(
+          task.state match {
+            case Open =>
+              h3(task.title)
+            case Closed =>
+              h3(className := ("line-through" +: Styles.textDimmed).toString)(
+                task.title
+              )
+          }
+        ),
+        if(expanded) p(task.description)
+        else div()
+      )
     )
   }
 }

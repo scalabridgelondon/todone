@@ -23,13 +23,13 @@ object ToDoneService {
               Id(1) -> Task(
                 State.open,
                 "Play with the ToDone interface",
-                "",
+                "Click around and see what works---and what doesn't.",
                 None,
                 Tags.empty),
               Id(2) -> Task(
                 State.open,
                 "Implement functionality to close a completed task",
-                "",
+                "The close button doesn't currently work. Let's fix that as our first task.",
                 None,
                 Tags.empty)
             )

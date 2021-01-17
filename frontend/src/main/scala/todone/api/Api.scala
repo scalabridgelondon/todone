@@ -76,8 +76,25 @@ object Api {
       .flatMap(s => parseJson(s))
       .map{ j =>
         Decoder[Tags].decodeJson(j) match {
-          case Left(err)    => throw err
+          case Left(err)   => throw err
           case Right(tags) => tags
+        }}
+  }
+
+  def projects: Future[Projects] = {
+    val ri = defaultRequest
+    ri.method = HttpMethod.GET
+    ri.mode = RequestMode.cors
+
+    Fetch
+      .fetch(s"${host}/api/projects", ri)
+      .toFuture
+      .flatMap(r => r.text().toFuture)
+      .flatMap(s => parseJson(s))
+      .map{ j =>
+        Decoder[Projects].decodeJson(j) match {
+          case Left(err)       => throw err
+          case Right(projects) => projects
         }}
   }
 

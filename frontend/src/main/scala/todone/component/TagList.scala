@@ -1,20 +1,21 @@
 package todone.component
 
 import slinky.core._
-import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
+import todone.data.{Tag, Tags}
 
-import todone.data.Tag
-
-@react object TagList extends SelectionList {
-  type Element = Tag
+class TagList(onSelect: Tag => Unit, onClear: () => Unit)
+    extends SelectionList[Tag](onSelect, onClear) {
   def renderElement(element: Tag): ReactElement = element.name
   def toKey(element: Tag): String = element.name
 
   val title = "Tags"
 
-  case class Props(projects: List[Tag])
+  case class Props(tags: Tags)
+  def apply(tags: Tags) =
+    component(Props(tags))
+
   val component = FunctionalComponent[Props] { props =>
-    render(props.projects)
+    render(props.tags.tags)
   }
 }

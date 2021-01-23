@@ -19,18 +19,19 @@ import todone.data._
 
   case class Props(onCreate: Task => Unit)
   val component = FunctionalComponent[Props] { props =>
-    val ((descriptionRef, titleRef), _) =
-      useState((React.createRef[TextArea], React.createRef[Input]))
+    val ((titleRef, projectRef, descriptionRef), _) =
+      useState((React.createRef[Input], React.createRef[Input], React.createRef[TextArea]))
 
     val onClick =
       () => {
         val title = titleRef.current.value
+        val project = projectRef.current.value
         val description = descriptionRef.current.value
         val task = Task(
           state = State.open,
           title = title,
           description = description,
-          project = None,
+          project = if(project.isEmpty()) None else Some(Project(project)),
           tags = Tags.empty
         )
 
@@ -44,7 +45,14 @@ import todone.data._
         name = "title",
         placeholder = "Title",
         ref = titleRef,
-        style = inputStyle
+        style = "text-lg font-bold" +: inputStyle
+      ),
+      TextInput(
+        id = "project",
+        name = "project",
+        placeholder = "Project",
+        ref = projectRef,
+        style = "text-sm" +: inputStyle
       ),
       TextAreaInput(
         id = "descrption",

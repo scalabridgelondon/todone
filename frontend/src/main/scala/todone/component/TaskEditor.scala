@@ -61,6 +61,7 @@ import todone.data._
         ref = descriptionRef,
         style = inputStyle
       ),
+      TagEditor(()),
       Button(
         onClick = onClick,
         label = "Create new task",

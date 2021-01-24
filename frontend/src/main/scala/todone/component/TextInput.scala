@@ -8,12 +8,14 @@ import slinky.web.html._
 import todone.Style
 
 @react object TextInput {
+
   case class Props(
       id: String,
       name: String,
       placeholder: String = "",
       ref: ReactRef[Input],
-      style: Style
+      style: Style,
+      onEnter: Option[() => Unit] = None
   )
   val component = FunctionalComponent[Props] { props =>
     input(
@@ -22,7 +24,10 @@ import todone.Style
       name := props.name,
       placeholder := props.placeholder,
       ref := props.ref,
-      `type` := "text"
+      `type` := "text",
+      onKeyUp := (evt =>
+        props.onEnter.foreach(f => if(evt.key == "Enter") f())
+      )
     )
   }
 }

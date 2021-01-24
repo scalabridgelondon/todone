@@ -61,11 +61,11 @@ import todone.data._
         ref = descriptionRef,
         style = inputStyle
       ),
-      TagEditor(()),
+      TagEditor(inputStyle),
       Button(
         onClick = onClick,
         label = "Create new task",
-        style = Style("p-2", "mb-2", "mt-2")
+        style = Style("p-2", "my-2")
       )
     )
   }

@@ -9,6 +9,6 @@ object Styles {
   val borderHoverAccent = Style("hover:border-blue-500")
   val borderFocusAccent = Style("focus:border-blue-500")
   val border = Style("border-2", "rounded", "border-gray-200")
-  val input = Style("focus:outline-none", "ring-2", "ring-gray-200", "focus:ring-blue-500", "hover:ring-blue-500", "rounded", "pb-2")
+  val input = Style("focus:outline-none", "ring-2", "ring-gray-200", "focus:ring-blue-500", "hover:ring-blue-500", "rounded")
   val button = Style("focus:outline-none", "border-2", "border-blue-400", "rounded", "text-blue-400", "hover:text-blue-500", "hover:border-blue-500")
 }

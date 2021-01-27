@@ -9,9 +9,23 @@ import todone.data
 @react object TagsView {
 
   val tagStyle =
-    Style("list-none", "inline-block", "text-sm", "p-2", "mr-2", "mb-2") ++ Styles.border
+    Style(
+      "list-none",
+      "inline-block",
+      "text-sm",
+      "p-2",
+      "mr-2",
+      "mb-2"
+    ) ++ Styles.border
 
-  val component = FunctionalComponent[List[data.Tag]] { tags =>
-    ul(tags.map(t => li(key := t.name, className := tagStyle.toString)(t.name)))
+  case class Props(tags: data.Tags, removeTag: data.Tag => ())
+  val component = FunctionalComponent[Props] { props =>
+    ul(className := "flex")(
+      props.tags.tags.map(t =>
+        li(key := t.name, className := "list-none flex-grow-0")(
+          TagView(tag = t, onClose = () => props.removeTag(t))
+        )
+      )
+    )
   }
 }

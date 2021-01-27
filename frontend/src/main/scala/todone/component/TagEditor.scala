@@ -11,20 +11,24 @@ import todone.data
 
 @react object TagEditor {
   val component = FunctionalComponent[Style] { style =>
-    val (tags, updateTags) = useState(List.empty[data.Tag])
+    val (tags, updateTags) = useState(data.Tags.empty)
     val (tagRef, _) = useState(React.createRef[Input])
 
     def addTag(tag: String): Unit =
-      updateTags{ tags =>
+      updateTags { tags =>
         val t = data.Tag(tag)
-        if(tag == "" || tags.contains(t)) tags else {
+        if (tag == "" || tags.contains(t)) tags
+        else {
           tagRef.current.value = ""
-          tags :+ t
+          tags.append(t)
         }
       }
 
     div(
-      TagsView(tags),
+      TagsView(
+        tags = tags,
+        removeTag = (tag => updateTags(t => t.remove(tag)))
+      ),
       TextInput(
         id = "tag",
         name = "tag",

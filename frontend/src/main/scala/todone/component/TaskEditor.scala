@@ -7,7 +7,7 @@ import slinky.core.facade.Hooks._
 import slinky.core.facade.React
 import slinky.web.html._
 import todone.Style
-import todone.data._
+import todone.data
 
 @react object TaskEditor {
 
@@ -17,22 +17,30 @@ import todone.data._
     "mb-2"
   )
 
-  case class Props(onCreate: Task => Unit)
+  case class Props(onCreate: data.Task => Unit)
   val component = FunctionalComponent[Props] { props =>
     val ((titleRef, projectRef, descriptionRef), _) =
-      useState((React.createRef[Input], React.createRef[Input], React.createRef[TextArea]))
+      useState(
+        (
+          React.createRef[Input],
+          React.createRef[Input],
+          React.createRef[TextArea]
+        )
+      )
+
+    val (tags, updateTags) = useState(data.Tags.empty)
 
     val onClick =
       () => {
         val title = titleRef.current.value
         val project = projectRef.current.value
         val description = descriptionRef.current.value
-        val task = Task(
-          state = State.open,
+        val task = data.Task(
+          state = data.State.open,
           title = title,
           description = description,
-          project = if(project.isEmpty()) None else Some(Project(project)),
-          tags = Tags.empty
+          project = if (project.isEmpty()) None else Some(data.Project(project)),
+          tags = tags
         )
 
         props.onCreate(task)
@@ -47,13 +55,6 @@ import todone.data._
         ref = titleRef,
         style = "text-lg font-bold" +: inputStyle
       ),
-      TextInput(
-        id = "project",
-        name = "project",
-        placeholder = "Project",
-        ref = projectRef,
-        style = "text-sm" +: inputStyle
-      ),
       TextAreaInput(
         id = "descrption",
         name = "description",
@@ -61,7 +62,14 @@ import todone.data._
         ref = descriptionRef,
         style = inputStyle
       ),
-      TagEditor(inputStyle),
+      TextInput(
+        id = "project",
+        name = "project",
+        placeholder = "Project",
+        ref = projectRef,
+        style = "text-sm" +: inputStyle
+      ),
+      TagsEditor(tags = tags, updateTags = updateTags, style = inputStyle),
       Button(
         onClick = onClick,
         label = "Create new task",

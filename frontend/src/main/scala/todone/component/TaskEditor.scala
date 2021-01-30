@@ -39,7 +39,8 @@ import todone.data
           state = data.State.open,
           title = title,
           description = description,
-          project = if (project.isEmpty()) None else Some(data.Project(project)),
+          project =
+            if (project.isEmpty()) None else Some(data.Project(project)),
           tags = tags
         )
 
@@ -69,7 +70,11 @@ import todone.data
         ref = projectRef,
         style = "text-sm" +: inputStyle
       ),
-      TagsEditor(tags = tags, updateTags = updateTags, style = inputStyle),
+      TagsEditor(
+        tags = tags,
+        updateTags = updateTags,
+        style = "text-sm" +: inputStyle
+      ),
       Button(
         onClick = onClick,
         label = "Create new task",

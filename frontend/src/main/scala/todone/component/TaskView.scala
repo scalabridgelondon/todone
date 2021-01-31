@@ -5,8 +5,9 @@ import slinky.core.annotations.react
 import slinky.core.facade.Hooks._
 import slinky.core.facade.ReactElement
 import slinky.web.html._
+// import slinky.web.svg.{width, height}
 
-import todone.Style
+import todone.{MaterialIcons, Style}
 import todone.data._
 import todone.data.State.Open
 import todone.data.State.Closed
@@ -47,22 +48,28 @@ import todone.data.State.Closed
 
     val task = props.task
 
-    div(className := "flex justify-start items-start bg-white px-4 py-2")(
-      checkbox(props.id, task.state, props.close),
-      div(
-        div(onClick := (() => updateExpanded(e => !e)))(
-          task.state match {
-            case Open =>
-              h3(task.title)
-            case Closed =>
-              h3(className := ("line-through" +: Styles.textDimmed).toString)(
-                task.title
-              )
-          }
-        ),
-        if(expanded) p(task.description)
-        else div()
-      )
+    div(className := "bg-white px-4 py-2")(
+      div(className := "flex justify-start items-baseline")(
+        checkbox(props.id, task.state, props.close),
+        div(
+          div(onClick := (() => updateExpanded(e => !e)),
+              className := "flex flex-grow justify-between items-baseline")(
+            task.state match {
+              case Open =>
+                h3(className := "mr-2")(task.title)
+              case Closed =>
+                h3(className := ("mr-2" +: "line-through" +: Styles.textDimmed).toString)(
+                  task.title
+                )
+            },
+            MaterialIcons.IconContext.Provider(new IconConfiguration)
+            if(expanded) MaterialIcons.MdExpandLess()
+            else MaterialIcons.MdExpandMore()
+          )
+        )
+      ),
+      if(expanded) p(className := "pt-4")(task.description)
+      else div()
     )
   }
 }

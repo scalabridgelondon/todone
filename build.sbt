@@ -67,7 +67,7 @@ lazy val frontend = project
       "postcss" -> "8.1.10",
       "tailwindcss" -> "2.0.1",
       "autoprefixer" -> "10.0.2",
-      "react-icons" -> "3.11.0"
+      "react-icons" -> "4.10.0"
     ),
     libraryDependencies ++= Seq(
       "me.shadaj" %%% "slinky-web" % "0.6.6",

@@ -51,21 +51,19 @@ import todone.data.State.Closed
     div(className := "bg-white px-4 py-2")(
       div(className := "flex justify-start items-baseline")(
         checkbox(props.id, task.state, props.close),
-        div(
-          div(onClick := (() => updateExpanded(e => !e)),
-              className := "flex flex-grow justify-between items-baseline")(
-            task.state match {
-              case Open =>
-                h3(className := "mr-2")(task.title)
-              case Closed =>
-                h3(className := ("mr-2" +: "line-through" +: Styles.textDimmed).toString)(
-                  task.title
-                )
-            },
-            MaterialIcons.IconContext.Provider(value = MaterialIcons.IconConfiguration.empty.withSize("1.75rem"))(
-              if(expanded) MaterialIcons.MdExpandLess()
-              else MaterialIcons.MdExpandMore()
-            )
+        div(onClick := (() => updateExpanded(e => !e)),
+            className := "flex flex-grow justify-between items-center")(
+          task.state match {
+            case Open =>
+              h3(className := "flex-grow-1 mr-2")(task.title)
+            case Closed =>
+              h3(className := ("mr-2" +: "line-through" +: Styles.textDimmed).toString)(
+                task.title
+              )
+          },
+          MaterialIcons.IconContext.Provider(value = MaterialIcons.IconConfiguration.empty.withSize("1.75rem"))(
+            if(expanded) MaterialIcons.MdExpandLess()
+            else MaterialIcons.MdExpandMore()
           )
         )
       ),

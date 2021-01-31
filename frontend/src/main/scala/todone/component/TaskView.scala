@@ -62,9 +62,10 @@ import todone.data.State.Closed
                   task.title
                 )
             },
-            MaterialIcons.IconContext.Provider(new IconConfiguration)
-            if(expanded) MaterialIcons.MdExpandLess()
-            else MaterialIcons.MdExpandMore()
+            MaterialIcons.IconContext.Provider(value = MaterialIcons.IconConfiguration.empty.withSize("1.75rem"))(
+              if(expanded) MaterialIcons.MdExpandLess()
+              else MaterialIcons.MdExpandMore()
+            )
           )
         )
       ),

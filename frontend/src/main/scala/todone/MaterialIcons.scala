@@ -2,7 +2,7 @@ package todone
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
-import slinky.core.ExternalComponentNoPropsWithAttributes
+import slinky.core.ExternalComponentNoProps
 import slinky.core.facade.ReactContext
 
 object MaterialIcons {
@@ -22,6 +22,44 @@ object MaterialIcons {
     def withStyle(style: String): IconConfiguration
     def withAttr(attr: String): IconConfiguration
     def withTitle(title: String): IconConfiguration
+  }
+  object IconConfiguration {
+    final class ConcreteIconConfiguration(
+        override val color: js.UndefOr[String],
+        override val size: js.UndefOr[String],
+        override val className: js.UndefOr[String],
+        override val style: js.UndefOr[String],
+        override val attr: js.UndefOr[String],
+        override val title: js.UndefOr[String]
+    ) extends IconConfiguration {
+      def withColor(color: String): IconConfiguration =
+        new ConcreteIconConfiguration(color, this.size, this.className, this.style, this.attr, this.title)
+
+      def withSize(size: String): IconConfiguration =
+        new ConcreteIconConfiguration(this.color, size, this.className, this.style, this.attr, this.title)
+
+      def withClassName(className: String): IconConfiguration =
+        new ConcreteIconConfiguration(this.color, this.size, className, this.style, this.attr, this.title)
+
+      def withStyle(style: String): IconConfiguration =
+        new ConcreteIconConfiguration(this.color, this.size, this.className, style, this.attr, this.title)
+
+      def withAttr(attr: String): IconConfiguration =
+        new ConcreteIconConfiguration(this.color, this.size, this.className, this.style, attr, this.title)
+
+      def withTitle(title: String): IconConfiguration =
+        new ConcreteIconConfiguration(this.color, this.size, this.className, this.style, this.attr, title)
+    }
+
+    val empty: IconConfiguration =
+      new ConcreteIconConfiguration(
+        js.undefined,
+        js.undefined,
+        js.undefined,
+        js.undefined,
+        js.undefined,
+        js.undefined
+      )
   }
 
   @JSImport("react-icons", "IconContext")

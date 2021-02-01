@@ -67,7 +67,11 @@ import todone.data.State.Closed
           )
         )
       ),
-      if(expanded) p(className := "pt-4")(task.description)
+      if(expanded)
+        div(className := "mt-4 mx-8")(
+          p(task.description),
+          task.project.map(project => project.name),
+        )
       else div()
     )
   }

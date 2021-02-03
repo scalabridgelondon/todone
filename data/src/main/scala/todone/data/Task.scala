@@ -12,6 +12,12 @@ final case class Task(
 ) {
   def close: Task =
     this.copy(state = State.closed)
+
+  def isClosed: Boolean =
+    state == State.closed
+
+  def isOpen: Boolean =
+    state == State.open
 }
 object Task {
   implicit val taskDecoder: Decoder[Task] = deriveDecoder[Task]

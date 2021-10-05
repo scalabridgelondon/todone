@@ -21,7 +21,15 @@ Once you've made your fork, clone it to your computer.
 
 ### Task 1
 
-Get the app running. This should be as simple as going into `sbt`, switching to the `backend` project, and issuing the `run` command. Then visit `http://localhost:3000/`. If everything works you will see the ToDone user interface. Click around and you'll that many things don't work (some because, at the time of writing, the user interface is not finished). Our task is to fix all these things to create a working app. In the process we'll learn a lot about Scala and web development.
+Get the app running. Make sure you have SBT installed (see [instructions](https://docs.scala-lang.org/getting-started/index.html#using-the-scala-installer-recommended-way))
+
+This is as simple as running the following command:
+
+```bash
+sbt 'backend/run'
+```
+
+Then visit `http://localhost:3000/`. If everything works you will see the ToDone user interface. Click around and you'll that many things don't work (some because, at the time of writing, the user interface is not finished). Our task is to fix all these things to create a working app. In the process we'll learn a lot about Scala and web development.
 
 [http4s]: https://http4s.org/
 [slinky]: https://slinky.dev/
